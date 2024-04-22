@@ -1,19 +1,53 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
+import React, { useEffect, useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import "./index.scss";
+import reducer, { changeAppNameAction } from "./reducer";
 
-const App = () => <h1>Dashboard</h1>;
+const remoteAppScope = "dashboard";
 
-export default App;
+const App = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state: any) => {
+    console.log(state);
+    return state[remoteAppScope];
+  });
+  const [remoteAppInput, setRemoteAppInput] = useState("");
 
-const isMainApplication = window.dashboardUrl;
+  return (
+    <div style={{ marginTop: "10px" }}>
+      <div>RemoteApp</div>
+      <div>
+        RemoteApp's name from the redux store : {state && state.appName}
+      </div>
 
-if (!isMainApplication) {
-  const rootElement = document.getElementById("app");
-  if (!rootElement) throw new Error("Failed to find the root element");
+      <div>
+        <input
+          style={{ marginRight: "10px" }}
+          type="text"
+          onChange={(e) => {
+            setRemoteAppInput(e.target.value);
+          }}
+        />
+        <button onClick={() => dispatch(changeAppNameAction(remoteAppInput))}>
+          Dispatch RemoteApp new name
+        </button>
+      </div>
+    </div>
+  );
+};
 
-  const root = ReactDOM.createRoot(rootElement as HTMLElement);
+const AppWrapper = (props) => {
+  console.log("🚀 ~ AppWrapper ~ props:", props);
+  const { store } = props;
+  useEffect(() => {
+    store.injectReducer(remoteAppScope, reducer);
+  }, []);
 
-  root.render(<App />);
-}
+  return (
+    <Provider store={store || {}}>
+      <App />
+    </Provider>
+  );
+};
+
+export default AppWrapper;
