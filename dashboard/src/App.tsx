@@ -18,29 +18,37 @@ const App = () => {
     }, [])
   );
 
+  const cart = useSelector((state: any) => state?.[remoteAppScope]?.cart);
+
   if (!showMenu) {
     return null;
   }
 
-  console.log("🚀 ~ App ~ products:", products);
-
   return (
-    <section className="absolute transform  bg-white shadow-lg p-6 rounded-lg">
+    <section className="absolute transform bg-white shadow-lg p-6 rounded-lg mt-4 ">
       <p className="text-base font-bold mb-4">My cart ({products.length})</p>
-      <section className="flex flex-col gap-4 rounded-lg border-solid p-4 border-2 border-gray-200 mb-4 ">
-        {products.map((product) => (
-          <Card key={product.id} {...product} />
-        ))}
-      </section>
 
-      <div className="flex flex-col gap-4">
-        <button className="rounded-3xl border-solid border-2 border-gray-200 py-2 px-4 w-full">
-          View All
-        </button>
-        <button className="rounded-3xl border-solid border-2 border-gray-200 py-2 px-4 w-full">
-          Buy
-        </button>
-      </div>
+      {products.length > 0 ? (
+        <>
+          <section className="flex flex-col gap-4 rounded-lg border-solid p-4 border-2 border-gray-200 mb-4 ">
+            {products.map((product) => (
+              <Card key={product.id} {...product} />
+            ))}
+          </section>
+
+          <div className="flex flex-col gap-4">
+            <button className="rounded-3xl border-solid border-2 border-gray-200 py-2 px-4 w-full">
+              View All
+            </button>
+            <button
+              onClick={() => window.alert(JSON.stringify(cart))}
+              className="rounded-3xl border-solid border-2 border-gray-200 py-2 px-4 w-full"
+            >
+              Buy
+            </button>
+          </div>
+        </>
+      ) : null}
     </section>
   );
 };

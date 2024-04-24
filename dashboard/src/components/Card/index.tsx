@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Product } from "../../products";
 
 export const Card = ({
+  id,
   image,
   name,
   price,
@@ -9,8 +11,31 @@ export const Card = ({
   type,
   color,
 }: Product) => {
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: "SET_PRODUCTS_CART", payload: { id, quantity, price } });
+  }, []);
+
+  console.log("Renderizado", id);
+  useEffect(() => {
+    dispatch({ type: "SET_QUANTITY_ITEM", payload: { id, quantity } });
+  }, [quantity]);
+
+  const changeQuantityItem = (operation: string) => () => {
+    setQuantity((val) => {
+      if (operation === "increase") {
+        return val + 1;
+      }
+
+      const decreased = val - 1;
+      return decreased < 0 ? val : decreased;
+    });
+  };
+
   return (
-    <article className="flex flex-wrap flex-1 gap-4">
+    <article className="flex flex-wrap flex-1 gap-4 ">
       <img
         src={image}
         alt={`Product ${name}`}
@@ -22,7 +47,7 @@ export const Card = ({
           {category}
         </span>
 
-        <h1 className="text-xl text-ellipsis font-bold">{name}</h1>
+        <h1 className="text-xl text-ellipsis font-bold w-36">{name}</h1>
         <p className="text-sm">
           <span className="text-gray-400 font-bold">Type: </span>
           {type}
@@ -37,9 +62,9 @@ export const Card = ({
         <p className="text-2xl font-bold text-nowrap">$ {price}</p>
 
         <div className="flex justify-evenly items-center	rounded-xl border-solid border-2 border-gray-200 bg-gray-100">
-          <button>-</button>
-          <span>2</span>
-          <button>+</button>
+          <button onClick={changeQuantityItem("decrease")}>-</button>
+          <span>{quantity}</span>
+          <button onClick={changeQuantityItem("increase")}>+</button>
         </div>
       </div>
     </article>

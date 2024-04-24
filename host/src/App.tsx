@@ -10,12 +10,16 @@ import { store } from "./store";
 const App = () => {
   return (
     <Provider store={store}>
-      <main>
-        <Menu />
+      <main className="mx-auto max-w-4xl px-4">
+        <div className="flex justify-end my-4">
+          <Menu />
+        </div>
 
-        {productList.map((product: Product) => (
-          <Card key={product.id} {...product} />
-        ))}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {productList.map((product: Product) => (
+            <Card key={product.id} {...product} />
+          ))}
+        </section>
       </main>
     </Provider>
   );

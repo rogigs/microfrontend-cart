@@ -15,7 +15,7 @@ export const Menu = () => {
   return (
     <>
       <button onClick={handleMenu} className="relative">
-        <div className="rounded-full w-10 h-10 border-solid border-2 border-black flex items-center justify-center  pb-2">
+        <div className="rounded-full w-10 h-10 border-solid border-2 border-black flex items-center justify-center pb-2">
           <div className="relative py-2 flex align">
             <div className="t-0 absolute left-3">
               <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
