@@ -1,44 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Provider, useSelector } from "react-redux";
 import "./index.scss";
-import reducer, { changeAppNameAction } from "./reducer";
-
+import { Product, productList } from "./products";
+import reducer from "./reducer";
 const remoteAppScope = "dashboard";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const state = useSelector((state: any) => {
-    console.log(state);
-    return state[remoteAppScope];
-  });
-  const [remoteAppInput, setRemoteAppInput] = useState("");
+  const showMenu = useSelector((state: any) => state.dashboard?.showMenu);
+  const products: Product[] = useSelector((state: any) =>
+    state.host.idProducts.reduce((acc: Product[], id: string) => {
+      const product = productList.find((product: Product) => product.id === id);
+      if (product) {
+        acc.push(product);
+      }
+      return acc;
+    }, [])
+  );
+
+  if (!showMenu) {
+    return null;
+  }
+
+  console.log("🚀 ~ App ~ products:", products);
 
   return (
-    <div style={{ marginTop: "10px" }}>
-      <div>RemoteApp</div>
-      <div>
-        RemoteApp's name from the redux store : {state && state.appName}
-      </div>
-
-      <div>
-        <input
-          style={{ marginRight: "10px" }}
-          type="text"
-          onChange={(e) => {
-            setRemoteAppInput(e.target.value);
-          }}
-        />
-        <button onClick={() => dispatch(changeAppNameAction(remoteAppInput))}>
-          Dispatch RemoteApp new name
-        </button>
-      </div>
-    </div>
+    <section className="absolute transform  bg-white shadow-lg p-6 rounded-lg">
+      My cart ({products.length})
+      {products.map(({ name }) => (
+        <p>{name}</p>
+      ))}
+    </section>
   );
 };
 
-const AppWrapper = (props) => {
-  console.log("🚀 ~ AppWrapper ~ props:", props);
-  const { store } = props;
+const AppWrapper = ({ store }: { store: any }) => {
   useEffect(() => {
     store.injectReducer(remoteAppScope, reducer);
   }, []);

@@ -1,21 +1,21 @@
-import React, { Suspense, useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { Card } from "./components/Card";
+import { Menu } from "./components/Menu";
 import "./index.scss";
+import { Product, productList } from "./products";
 import { store } from "./store";
 
-const Dashboard = React.lazy(() => import("dashboard/App"));
-
 const App = () => {
-  useEffect(() => {}, []);
-
   return (
     <Provider store={store}>
       <main>
-        <h1>Host</h1>
-        <Suspense fallback={"loading..."}>
-          <Dashboard store={store} />
-        </Suspense>
+        <Menu />
+
+        {productList.map((product: Product) => (
+          <Card key={product.id} {...product} />
+        ))}
       </main>
     </Provider>
   );

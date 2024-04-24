@@ -1,23 +1,34 @@
 import { Store, combineReducers, compose, createStore } from "redux";
 
 interface RootState {
-  appName: string;
+  idProducts: string[];
 }
 
 const initialState: RootState = {
-  appName: "dashboard",
+  idProducts: [],
 };
 
-type Action = { type: string };
+type Action<P> = { type: string; payload: P };
 
 const hostReducer = (
   state: RootState = initialState,
-  action: Action
+  action: Action<string>
 ): RootState => {
-  switch (action.type) {
-    default:
+  if (action.type === "SET_PRODUCTS") {
+    const idProduct = action.payload;
+    const hasProduct = state.idProducts.find((id) => id === idProduct);
+
+    if (hasProduct) {
       return state;
+    }
+
+    return {
+      ...state,
+      idProducts: [...state.idProducts, idProduct],
+    };
   }
+
+  return state;
 };
 
 const staticReducers = {
@@ -26,7 +37,7 @@ const staticReducers = {
 
 export default function configureStore(
   initialState?: RootState
-): Store<RootState, Action> {
+): Store<RootState, Action<any>> {
   const composeEnhancers =
     typeof window === "object" &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
