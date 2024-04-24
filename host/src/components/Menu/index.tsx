@@ -8,7 +8,6 @@ export const Menu = () => {
   const dispatch = useDispatch();
   const products = useSelector((state: any) => state["host"].idProducts);
   const showMenu = useSelector((state: any) => state.dashboard?.showMenu);
-  console.log("🚀 ~ Menu ~ showMenu:", showMenu);
 
   const handleMenu = () =>
     dispatch({ type: "SET_SHOW_MENU", payload: showMenu });

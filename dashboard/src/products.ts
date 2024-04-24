@@ -6,6 +6,7 @@ export type Product = {
   rating: number;
   type: string;
   color: string;
+  category: string;
 };
 
 export const productList: Product[] = [
@@ -15,7 +16,8 @@ export const productList: Product[] = [
     image: "https://imgnike-a.akamaihd.net/1920x1920/026118P1.jpg",
     price: 29.99,
     rating: 4.5,
-    type: "Shirt",
+    type: "Sport",
+    category: "Shirt",
     color: "Red",
   },
   {
@@ -24,8 +26,9 @@ export const productList: Product[] = [
     image: "https://imgnike-a.akamaihd.net/1920x1920/02261815.jpg",
     price: 49.99,
     rating: 4.2,
-    type: "Shirt",
+    type: "Sport",
     color: "Blue",
+    category: "Shirt",
   },
   {
     id: "c5573d01-1588-4118-a2cb-55fa8cdc3736",
@@ -33,7 +36,8 @@ export const productList: Product[] = [
     image: "https://imgnike-a.akamaihd.net/1300x1300/01257915.jpg",
     price: 79.99,
     rating: 4.8,
-    type: "Shirt",
+    type: "Sport",
     color: "Yellow",
+    category: "Shirt",
   },
 ];
