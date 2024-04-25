@@ -45,7 +45,7 @@ module.exports = (_, argv) => ({
       name: "host",
       filename: "remoteEntry.js",
       remotes: {
-        dashboard: "dashboard@[dashboardUrl]/remoteEntry.js",
+        cart: "cart@[cartUrl]/remoteEntry.js",
       },
       exposes: {},
       shared: {

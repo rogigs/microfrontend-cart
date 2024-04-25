@@ -5,14 +5,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./Layout";
 import "./index.scss";
 import { store } from "./store";
-const Dashboard = React.lazy(() => import("dashboard/App"));
+const Cart = React.lazy(() => import("cart/App"));
 
 const App = () => {
   return (
     <Provider store={store}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/cart" element={<Dashboard />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
     </Provider>

@@ -2,12 +2,12 @@ import React, { Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../store";
 
-const Dashboard = React.lazy(() => import("dashboard/App"));
+const Cart = React.lazy(() => import("cart/App"));
 
 export const Menu = () => {
   const dispatch = useDispatch();
   const products = useSelector((state: any) => state["host"].idProducts);
-  const showMenu = useSelector((state: any) => state.dashboard?.showMenu);
+  const showMenu = useSelector((state: any) => state.cart?.showMenu);
 
   const handleMenu = () =>
     dispatch({ type: "SET_SHOW_MENU", payload: showMenu });
@@ -40,7 +40,7 @@ export const Menu = () => {
         </div>
       </button>
       <Suspense fallback={"loading..."}>
-        <Dashboard store={store} />
+        <Cart store={store} />
       </Suspense>
     </>
   );

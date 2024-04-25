@@ -41,7 +41,7 @@ module.exports = (_, argv) => ({
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "dashboard",
+      name: "cart",
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {

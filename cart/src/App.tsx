@@ -4,10 +4,10 @@ import { Card } from "./components/Card";
 import "./index.scss";
 import { Product, productList } from "./products";
 import reducer from "./reducer";
-const remoteAppScope = "dashboard";
+const remoteAppScope = "cart";
 
 const App = () => {
-  const showMenu = useSelector((state: any) => state.dashboard?.showMenu);
+  const showMenu = useSelector((state: any) => state.cart?.showMenu);
   const products: Product[] = useSelector((state: any) =>
     state.host.idProducts.reduce((acc: Product[], id: string) => {
       const product = productList.find((product: Product) => product.id === id);
