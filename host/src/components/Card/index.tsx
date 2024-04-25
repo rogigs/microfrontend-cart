@@ -15,7 +15,7 @@ export const Card = ({ id, image, name, price, rating }: Product) => {
         src={image}
         alt={`Product ${name}`}
         loading="lazy"
-        className="rounded-lg w-60 h-60"
+        className="rounded-lg w-full h-64"
       />
 
       <h1 className="text-3xl font-bold ">{name}</h1>
