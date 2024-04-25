@@ -1,23 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { lazy } from "react";
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Layout } from "./Layout";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.scss";
+import { Layout } from "./Layout";
 import { store } from "./store";
-const Cart = React.lazy(() => import("cart/App"));
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/cart" element={<Cart />} />
-        </Route>
-      </Routes>
-    </Provider>
-  );
-};
+const FullCart = lazy(() =>
+  import("cart/App").then((mod) => ({ default: mod.CartWrapper }))
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+  },
+  {
+    path: "/cart",
+    element: <FullCart store={store} type="FULL" />,
+  },
+]);
 
 const rootElement = document.getElementById("app");
 if (!rootElement) throw new Error("Failed to find the root element");
@@ -25,7 +27,9 @@ if (!rootElement) throw new Error("Failed to find the root element");
 const root = ReactDOM.createRoot(rootElement as HTMLElement);
 
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </React.StrictMode>
 );

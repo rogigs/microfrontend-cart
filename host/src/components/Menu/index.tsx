@@ -1,8 +1,10 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../store";
 
-const Cart = React.lazy(() => import("cart/App"));
+const SummaryCart = lazy(() =>
+  import("cart/App").then((mod) => ({ default: mod.CartWrapper }))
+);
 
 export const Menu = () => {
   const dispatch = useDispatch();
@@ -40,7 +42,7 @@ export const Menu = () => {
         </div>
       </button>
       <Suspense fallback={"loading..."}>
-        <Cart store={store} />
+        <SummaryCart store={store} type="SUMMARY" />
       </Suspense>
     </>
   );

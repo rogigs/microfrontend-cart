@@ -6,7 +6,7 @@ import { Product, productList } from "./products";
 import reducer from "./reducer";
 const remoteAppScope = "cart";
 
-const App = () => {
+const SummaryCart = () => {
   const showMenu = useSelector((state: any) => state.cart?.showMenu);
   const products: Product[] = useSelector((state: any) =>
     state.host.idProducts.reduce((acc: Product[], id: string) => {
@@ -53,16 +53,26 @@ const App = () => {
   );
 };
 
-const AppWrapper = ({ store }: { store: any }) => {
+const FullCart = () => {
+  console.log("HIRE UAI");
+
+  return <h1>Hi</h1>;
+};
+
+export const CartWrapper = ({ store, type }: { store: any }) => {
+  const Component = {
+    SUMMARY: SummaryCart,
+    FULL: FullCart,
+  }[type];
+  console.log("🚀 ~ CartWrapper ~ Component:", Component);
+
   useEffect(() => {
     store.injectReducer(remoteAppScope, reducer);
   }, []);
 
   return (
     <Provider store={store || {}}>
-      <App />
+      <Component />
     </Provider>
   );
 };
-
-export default AppWrapper;
