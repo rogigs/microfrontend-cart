@@ -9,6 +9,14 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === "SET_PRODUCTS_CART") {
+    const hasItem =
+      state.cart.length !== 0 &&
+      state.cart.some(({ id }) => action.payload.id === id);
+
+    if (hasItem) {
+      return state;
+    }
+
     const auxCart = state.cart;
     auxCart.push(action.payload as never);
     return { ...state, cart: auxCart };

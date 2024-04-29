@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -17,7 +17,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/cart",
-    element: <FullCart store={store} type="FULL" />,
+    element: (
+      <Suspense fallback="loading...">
+        <FullCart store={store} type="FULL" />
+      </Suspense>
+    ),
   },
 ]);
 

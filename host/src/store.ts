@@ -28,6 +28,13 @@ const hostReducer = (
     };
   }
 
+  if (action.type === "SET_REMOVE_ITEM") {
+    return {
+      ...state,
+      idProducts: state.idProducts.filter((id) => id !== action.payload),
+    };
+  }
+
   return state;
 };
 

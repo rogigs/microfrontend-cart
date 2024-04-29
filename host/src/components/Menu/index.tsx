@@ -42,7 +42,7 @@ export const Menu = () => {
         </div>
       </button>
       <Suspense fallback={"loading..."}>
-        <SummaryCart store={store} type="SUMMARY" />
+        <SummaryCart store={store} type="SUMMARY" showMenu={showMenu} />
       </Suspense>
     </>
   );
