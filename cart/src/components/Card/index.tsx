@@ -38,6 +38,7 @@ export const Card = ({
 
   const removeItem = () => {
     dispatch({ type: "SET_REMOVE_ITEM", payload: id });
+    dispatch({ type: "SET_REMOVE_ITEM_CART", payload: id });
   };
 
   return (

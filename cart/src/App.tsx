@@ -22,6 +22,7 @@ const SummaryCart = ({ showMenu }: SummaryCart) => {
       return acc;
     }, [])
   );
+
   if (!showMenu) {
     return null;
   }

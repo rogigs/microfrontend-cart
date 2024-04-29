@@ -12,7 +12,7 @@ type Action<P> = { type: string; payload: P };
 
 const hostReducer = (
   state: RootState = initialState,
-  action: Action<string>
+  action: Action<any>
 ): RootState => {
   if (action.type === "SET_PRODUCTS") {
     const idProduct = action.payload;

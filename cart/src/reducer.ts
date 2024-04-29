@@ -40,6 +40,13 @@ const reducer = (state = initialState, action: any) => {
     return { ...state, cart: auxCart };
   }
 
+  if (action.type === "SET_REMOVE_ITEM_CART") {
+    return {
+      ...state,
+      cart: state.cart.filter(({ id }) => id !== action.payload),
+    };
+  }
+
   return state;
 };
 
